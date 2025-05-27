@@ -1,0 +1,42 @@
+# .coveralls.yml
+
+# Global and Patch Coverage Checks
+# Specifies the minimum required coverage percentage for the entire project.
+# If coverage drops below this, Coveralls will mark the build as failed.
+threshold:
+  # Global coverage threshold
+  # You can adjust this value (e.g., to 70 for 70% coverage)
+  # A lower threshold might be used initially, then increased over time.
+  # If the current coverage is 85% and this is set to 80%, it passes.
+  # If it drops to 79%, it fails.
+  percentage: 70 # Example: Require at least 70% global coverage
+
+  # Patch coverage threshold (for pull requests)
+  # This sets the minimum coverage percentage for new or changed lines in a PR.
+  # If new code doesn't meet this, Coveralls will fail the PR status.
+  # Example: Require 80% coverage on new/changed lines.
+  partial_percentage: 80 # Example: Require at least 80% coverage on changed lines
+
+  # Optional: Minimum number of changed lines required to enforce partial_percentage
+  # ignore_stats_threshold: 5
+
+# Pull Request Comments and Status
+# This tells Coveralls to post comments and update status checks on GitHub Pull Requests.
+# Ensure your GitHub Action workflow passes GITHUB_TOKEN to the coveralls command.
+# (We configured this in the previous step)
+pull_request:
+  comment_on_success: true # Post a comment when coverage passes
+  comment_on_failure: true # Post a comment when coverage fails
+  # Optionally, specify specific thresholds for PR comments/status
+  # If not specified, it uses the 'threshold' and 'partial_percentage' from above.
+  # You can also set specific failure_threshold values:
+  # failure_threshold:
+  #   global: 75 # Fail PR if global coverage drops below 75%
+  #   patch: 90  # Fail PR if new/changed lines coverage drops below 90%
+
+# Exclude files/directories from reporting if they're not relevant
+# This can be configured in .coveragerc as well, but you can also do it here.
+# ignore:
+#   - "*/tests/*"
+#   - "*/__init__.py"
+#   - "*/site-packages/*"
