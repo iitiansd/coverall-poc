@@ -37,15 +37,6 @@ jobs:
     - name: Upload coverage to Coveralls
       if: success()
       env:
-        # This is the crucial part: explicitly pass the GitHub Actions default token
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # If you still have a COVERALLS_REPO_TOKEN, you can potentially
-        # use it *instead* of GITHUB_TOKEN, but the GITHUB_TOKEN is
-        # the more common and often more robust method for GHA.
-        # If you were to use COVERALLS_REPO_TOKEN, you'd also need:
-        # COVERALLS_REPO_TOKEN: ${{ secrets.YOUR_COVERALLS_REPO_TOKEN_NAME }}
-        # COVERALLS_SERVICE_NAME: github-actions
       run: |
-        # Optional diagnostic to confirm the token is set (it will be masked in logs)
-        echo "GITHUB_TOKEN is set (first 5 chars): ${GITHUB_TOKEN:0:5}..."
-        coveralls # This command automatically looks for coverage.xml
+        coveralls --verbose # Make sure this is present
