@@ -14,7 +14,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest # Or 'macos-latest', 'windows-latest' if needed
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
@@ -23,7 +23,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.12' # Use the Python version you are developing with
+        python-version: '3.12'
 
     - name: Install dependencies
       run: |
@@ -32,30 +32,21 @@ jobs:
 
     - name: Run tests with coverage
       run: |
-        # Ensure you are in the root directory where pytest can find all modules
-        # and where .coveragerc is located.
         pytest --cov=. --cov-report=xml --cov-report=term
 
-    - name: Upload coverage to Codecov
-      # Use this step if you are using Codecov
-      if: success() # Only run if previous steps succeeded
-      uses: codecov/codecov-action@v4
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }} # Your Codecov token from GitHub Secrets
-        files: ./coverage.xml # Path to your coverage XML report
-        # flags: unittests # Optional: Add flags if you want to categorize reports
-        # You can add more flags here if you have separate coverage runs for different teams
-        # For a monorepo, you might run pytest multiple times with different --cov arguments
-        # and then upload multiple coverage files with different flags.
-        # For example:
-        # pytest python_v2/my_library/tests/ --cov=python_v2/my_library --cov-report=xml:coverage_python_v2.xml
-        # codecov -t ${{ secrets.CODECOV_TOKEN }} -F taxanomy -f coverage_python_v2.xml
-
+    # Ensure this step is correctly indented under 'steps:'
     - name: Upload coverage to Coveralls
-      # Use this step if you are using Coveralls (choose either Codecov or Coveralls)
-      if: success() # Only run if previous steps succeeded
+      if: success()
+      # 'env:' block must be at the same indentation level as 'name:', 'if:', and 'run:'
       env:
-        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }} # Your Coveralls token from GitHub Secrets
-        COVERALLS_SERVICE_NAME: github-actions # <--- ADD THIS LINE
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        COVERALLS_SERVICE_NAME: github-actions
       run: |
+        # --- Diagnostic: Print environment variables to confirm ---
+        echo "Checking environment variables before coveralls command:"
+        echo "COVERALLS_REPO_TOKEN is set (first 5 chars): ${COVERALLS_REPO_TOKEN:0:5}..."
+        echo "COVERALLS_SERVICE_NAME is set: ${COVERALLS_SERVICE_NAME}"
+        echo "----------------------------------------------------"
+        # --- End Diagnostic ---
+
         coveralls # This command automatically looks for coverage.xml
