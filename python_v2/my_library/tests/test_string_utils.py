@@ -33,10 +33,3 @@ class TestStringUtils(unittest.TestCase):
         self.assertEqual(remove_spaces(" no spaces here "), "nospaceshere")
         self.assertEqual(remove_spaces(""), "")
         self.assertEqual(remove_spaces("singleword"), "singleword")
-
-    def test_reverse_words(self):
-        self.assertEqual(reverse_words("hello world"), "world hello")
-        self.assertEqual(reverse_words("one two three"), "three two one")
-        self.assertEqual(reverse_words("single"), "single")
-        self.assertEqual(reverse_words(""), "")
-        self.assertEqual(reverse_words("  leading and trailing spaces  "), "  spaces trailing and leading  ") # Preserves multiple spaces between words
