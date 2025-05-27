@@ -1,0 +1,49 @@
+# .gitignore
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+build/
+develop-eggs/
+dist/
+eggs/
+.eggs/
+*.egg-info/
+.coverage
+.pytest_cache/
+htmlcov/
+.tox/
+.mypy_cache/
+.ipynb_checkpoints/
+*.egg
+*.so
+
+# IDEs
+.idea/                  # PyCharm
+.vscode/                # VS Code (if you don't want to share settings)
+*.iml                   # IntelliJ
+.DS_Store               # macOS
+Thumbs.db               # Windows
+
+# Coverage reports
+coverage.xml            # Pytest-cov XML report
+.coverage.* # Pytest-cov temporary files
+.coveragerc             # Keep this if you want to share coverage config
+.pytest_cache/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+
+# Sensitive files (e.g., API keys, environment variables)
+.env                    # Common for environment variables
+*.env
+*.token
+*.key
