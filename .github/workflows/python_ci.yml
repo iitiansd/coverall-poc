@@ -34,19 +34,13 @@ jobs:
       run: |
         pytest --cov=. --cov-report=xml --cov-report=term
 
-    # Ensure this step is correctly indented under 'steps:'
     - name: Upload coverage to Coveralls
       if: success()
-      # 'env:' block must be at the same indentation level as 'name:', 'if:', and 'run:'
-      env:
-        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-        COVERALLS_SERVICE_NAME: github-actions
+      # REMOVE the 'env:' block here.
+      # Coveralls will auto-detect GitHub Actions and use the default GITHUB_TOKEN.
       run: |
-        # --- Diagnostic: Print environment variables to confirm ---
-        echo "Checking environment variables before coveralls command:"
-        echo "COVERALLS_REPO_TOKEN is set (first 5 chars): ${COVERALLS_REPO_TOKEN:0:5}..."
-        echo "COVERALLS_SERVICE_NAME is set: ${COVERALLS_SERVICE_NAME}"
-        echo "----------------------------------------------------"
-        # --- End Diagnostic ---
-
-        coveralls # This command automatically looks for coverage.xml
+        # Optional: You can keep diagnostic echoes for GITHUB_TOKEN if curious,
+        # but don't explicitly set COVERALLS_REPO_TOKEN or COVERALLS_SERVICE_NAME
+        # unless specifically needed for a non-standard setup.
+        # echo "GITHUB_TOKEN is set (first 5 chars): ${GITHUB_TOKEN:0:5}..."
+        coveralls
