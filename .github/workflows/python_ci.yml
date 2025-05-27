@@ -56,5 +56,6 @@ jobs:
       if: success() # Only run if previous steps succeeded
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }} # Your Coveralls token from GitHub Secrets
+        COVERALLS_SERVICE_NAME: github-actions # <--- ADD THIS LINE
       run: |
         coveralls # This command automatically looks for coverage.xml
